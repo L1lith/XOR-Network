@@ -1,0 +1,17 @@
+{
+  "name": "xor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "L1lith",
+  "dependencies": {
+    "auto-bind": "^4.0.0",
+    "deep-equal": "^2.0.3",
+    "sandhands": "^1.6.5",
+    "seedrandom": "^3.0.5"
+  }
+}
