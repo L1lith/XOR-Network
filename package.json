@@ -11,6 +11,7 @@
   "dependencies": {
     "auto-bind": "^4.0.0",
     "deep-equal": "^2.0.3",
+    "jsonfile": "^6.0.1",
     "sandhands": "^1.6.5",
     "seedrandom": "^3.0.5"
   }

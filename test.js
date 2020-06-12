@@ -2,7 +2,7 @@ const NeuralNetwork = require('./NeuralNetwork')
 const activationSigmoid = require('./functions/activationSigmoid')
 
 const network = new NeuralNetwork({
-  seed: 1621,
+  seed: 921,
   inputNeurons: 2,
   outputNeurons: 1
 })
@@ -30,7 +30,12 @@ const tests = [{
   output: [0]
 }]
 
-const cloneNetwork = network.clone()
+//const cloneNetwork = network.clone()
+const cloneNetwork = new NeuralNetwork({
+  seed: 142,
+  inputNeurons: 2,
+  outputNeurons: 1
+})
 cloneNetwork.initializeNeurons()
 
 console.log("- WEIGHTS -")
@@ -40,4 +45,4 @@ console.log(cloneNetwork.neuronsArray.slice(1).map(layer => layer.map(neuron => 
 console.log("- OUTPUT -")
 console.log(network.detailedOutput([0, 1]))
 console.log("- OUTPUT 2 -")
-console.log(network.detailedOutput([0, 1]))
+console.log(cloneNetwork.detailedOutput([0, 0]))

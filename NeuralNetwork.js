@@ -5,6 +5,7 @@ const seedRandom = require('seedrandom')
 const {inspect} = require('util')
 const Neuron = require('./Neuron')
 const deepEqual = require('deep-equal')
+const jsonfile = require('jsonfile')
 
 
 const defaultOptions = {
@@ -141,6 +142,9 @@ class NeuralNetwork {
     return layer.map(neuron => {
       return neuron.calculateOutput(lastOutput)
     })
+  }
+  async saveToDisk(path="network.json") {
+
   }
   getScores(...tests) {
     sanitize(tests, {

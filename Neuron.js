@@ -19,10 +19,10 @@ class Neuron {
     const {weights} = this
     if (!Array.isArray(previousOutput)) throw new Error("Please supply a previous output layer")
     if (weights.length !== previousOutput.length) throw new Error(`Previous output length and weights length do not match, Last Output: ${inspect(previousOutput)}, Weights: ${inspect(weights)}`)
-    if (previousOutput.length !== weights.length) throw new Error("Previous output and weights size mismatch")
+   // if (previousOutput.length !== weights.length) throw new Error("Previous output and weights size mismatch")
     return activationSigmoid(weights.map((weight, index) => {
       return weight * previousOutput[index]
-    }).reduce((a, b) => a + b, 0) / weights.length)
+    }).reduce((a, b) => a + b, 0) /*/ weights.length*/)
   }
   getPreviousLayer() {
     if (this.type === "input") throw new Error("Cannot get the previous layer of the input layer")
