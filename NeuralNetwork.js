@@ -125,7 +125,7 @@ class NeuralNetwork {
         // Do Nothing
         outputs.inputs = lastOutput
       } else {
-        lastOutput = this.getLayerOutput(layer, lastOutput)
+        lastOutput = this.getLayerOutput(layer, neuronsArray[l - 1], lastOutput)
         if (l >= neuronsArray.length - 1) { // last laster (aka output layer)
           outputs.output = lastOutput
         } else {
@@ -136,11 +136,11 @@ class NeuralNetwork {
     }
     return outputs
   }
-  getLayerOutput(layer, lastOutput) {
+  getLayerOutput(layer, lastLayer, lastOutput) {
     const layerType = layer[0].type
     if (layerType === "input") throw new Error("Cannot get the output of the input layer")
     return layer.map(neuron => {
-      return neuron.calculateOutput(lastOutput)
+      return neuron.calculateOutput(lastLayer, lastOutput)
     })
   }
   async saveToDisk(path="network.json") {

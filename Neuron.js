@@ -15,12 +15,13 @@ class Neuron {
     if (isFinite(options.neuronIndex) && options.neuronIndex >= 0) freezeProperty(this, 'neuronIndex', options.neuronIndex)
     if (this.type !== 'input') this.generateWeights()
   }
-  calculateOutput(previousOutput) {
+  calculateOutput(previousNeurons, previousOutput) {
     const {weights} = this
     if (!Array.isArray(previousOutput)) throw new Error("Please supply a previous output layer")
-    if (weights.length !== previousOutput.length) throw new Error(`Previous output length and weights length do not match, Last Output: ${inspect(previousOutput)}, Weights: ${inspect(weights)}`)
-   // if (previousOutput.length !== weights.length) throw new Error("Previous output and weights size mismatch")
-    return activationSigmoid(weights.map((weight, index) => {
+    if (previousNeurons.length !== previousOutput.length) throw new Error(`Previous output length and previous neurons length do not match, Last Output: ${inspect(previousOutput)}, Weights: ${inspect(previousNeurons)}`)
+    return activationSigmoid(previousNeurons.map((neuron, index) => {
+      const weight = weights.get(neuron)
+      if (!isFinite(weight)) throw new Error(`Invalid Weight ${inspect(weight)}`)
       return weight * previousOutput[index]
     }).reduce((a, b) => a + b, 0) /*/ weights.length*/)
   }
@@ -65,11 +66,12 @@ class Neuron {
     }
   }
   generateWeights() {
-    this.weights = []
+    this.weights = new WeakMap()
     if (this.type === "input") throw new Error("The input layer cannot have weights")
     const previousLayer = this.getPreviousLayer()
     for (let i = 0; i < previousLayer.length; i++) {
-      this.weights[i] = this.network.random()
+      const neuron = previousLayer[i]
+      this.weights.set(neuron, (this.network.random() * 2) - 1)
     }
   }
 }
